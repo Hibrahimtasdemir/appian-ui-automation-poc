@@ -16,8 +16,10 @@
         <selenium.version>4.28.1</selenium.version>
         <testng.version>7.10.2</testng.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
+        <appian.selenium.api.version>local-1.0</appian.selenium.api.version>
         <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.5.2</maven.surefire.plugin.version>
+        <log4j.version>2.24.3</log4j.version>
     </properties>
 
     <dependencies>
@@ -41,6 +43,27 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- Appian Selenium API -->
+        <dependency>
+            <groupId>com.appiancorp.ps.automatedtest</groupId>
+            <artifactId>appian-selenium-api</artifactId>
+            <version>${appian.selenium.api.version}</version>
+        </dependency>
+
+        <!-- Log4j API required by Appian Selenium API -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Log4j Core required by Appian Selenium API -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 

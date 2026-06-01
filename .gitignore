@@ -36,3 +36,13 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### TestNG ###
+test-output/
+
+### Logs ###
+*.log
+
+### Local environment files ###
+.env
+local.properties

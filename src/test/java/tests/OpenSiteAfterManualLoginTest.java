@@ -14,7 +14,7 @@ import java.time.Duration;
 
 public class OpenSiteAfterManualLoginTest extends BaseTest {
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "manual-login"})
     public void shouldOpenEmployeeLeaveDashboardAfterManualLogin() {
         String siteUrl = ConfigReader.get("appian.site.url");
 

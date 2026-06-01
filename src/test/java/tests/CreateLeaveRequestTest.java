@@ -13,7 +13,7 @@ public class CreateLeaveRequestTest extends BaseTest {
 
     private static final String SITE_PATH = "/suite/sites/leave-request-automation-poc";
 
-    @Test
+    @Test(groups = {"e2e", "leave-request"})
     public void shouldCreateNewLeaveRequest() {
         String siteUrl = ConfigReader.get("appian.site.url");
         LeaveRequestTestData testData = LeaveRequestTestData.validLeaveRequest();

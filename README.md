@@ -28,12 +28,28 @@ Current implemented flow:
 - Page Object Model
 - Appian Community Edition
 
+## Framework Features
+
+Current framework capabilities:
+
+- Clean Page Object Model structure
+- Shared `BasePage` for common UI actions
+- `DriverFactory` for WebDriver creation
+- `ConfigReader` for reading configuration values
+- `ManualLoginHelper` for manual Appian login handling
+- `LeaveRequestTestData` for test data generation
+- Screenshot capture on test failure
+- TestNG groups for test organization
+- Maven Surefire integration with `testng.xml`
+
 ## Project Structure
 
 ```text
 src/test/java
 ├── base
 │   └── BaseTest.java
+├── drivers
+│   └── DriverFactory.java
 ├── pages
 │   ├── BasePage.java
 │   ├── EmployeeLeaveDashboardPage.java
@@ -46,7 +62,8 @@ src/test/java
 │   └── SmokeOpenSiteTest.java
 └── utils
     ├── ConfigReader.java
-    └── ManualLoginHelper.java
+    ├── ManualLoginHelper.java
+    └── ScreenshotUtils.java
 
 Current Test Coverage
 Create New Leave Request
@@ -56,6 +73,11 @@ The main E2E test currently verifies that a user can create a new leave request 
 Test class:
 
 tests.CreateLeaveRequestTest
+
+Test groups:
+
+e2e
+leave-request
 
 Covered steps:
 
@@ -99,11 +121,28 @@ Enter the email verification code if required.
 The test will continue automatically after the Appian Site is loaded.
 Screenshot on Failure
 
+Screenshot on Failure
+
 If a test fails, a screenshot is automatically saved under:
 
 target/screenshots
 
 This helps with debugging dynamic Appian UI behavior.
+
+Screenshot handling is implemented in:
+
+utils.ScreenshotUtils
+
+Important Notes About Appian UI Automation
+
+Appian UI components can behave differently from standard HTML forms. For this reason, the framework uses a few Appian-friendly interaction patterns:
+
+Explicit waits instead of implicit waits
+Scroll to element before clicking
+CTRL + A, BACKSPACE, value entry, and TAB for input fields
+Additional ENTER after clicking the CREATE button
+
+These patterns help Appian commit entered values and trigger UI actions more reliably.
 
 Known Limitations
 Login is currently handled manually because Appian Community requires email verification.

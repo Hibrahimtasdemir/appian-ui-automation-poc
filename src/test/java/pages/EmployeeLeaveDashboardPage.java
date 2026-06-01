@@ -1,19 +1,13 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class EmployeeLeaveDashboardPage {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class EmployeeLeaveDashboardPage extends BasePage {
 
     private final By newLeaveRequestButton = By.xpath(
             "//button[.//span[contains(normalize-space(), 'New Leave Request')] or contains(normalize-space(), 'New Leave Request')]"
@@ -32,45 +26,30 @@ public class EmployeeLeaveDashboardPage {
     );
 
     public EmployeeLeaveDashboardPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        super(driver);
     }
 
     public void waitUntilLoaded() {
-        wait.until(ExpectedConditions.elementToBeClickable(newLeaveRequestButton));
+        waitUntilClickable(newLeaveRequestButton);
     }
 
     public void clickNewLeaveRequest() {
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(newLeaveRequestButton));
-
-        scrollToCenter(button);
-
-        button.click();
+        click(newLeaveRequestButton);
     }
 
     public void searchRequest(String employeeName) {
-        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(searchInput));
-
-        input.click();
-        input.sendKeys(Keys.CONTROL, "a");
-        input.sendKeys(Keys.BACK_SPACE);
-        input.sendKeys(employeeName);
-        input.sendKeys(Keys.TAB);
-
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(searchButton));
-
-        scrollToCenter(button);
-
-        button.click();
+        typeAndTab(searchInput, employeeName);
+        click(searchButton);
     }
 
     public void refreshIfAvailable() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement button = shortWait.until(ExpectedConditions.elementToBeClickable(refreshButton));
+            WebElement button = shortWait.until(
+                    org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(refreshButton)
+            );
 
             scrollToCenter(button);
-
             button.click();
 
         } catch (Exception ignored) {
@@ -80,15 +59,6 @@ public class EmployeeLeaveDashboardPage {
 
     public boolean isRequestVisible(String employeeName) {
         By createdRequest = By.xpath("//*[contains(normalize-space(), '" + employeeName + "')]");
-        WebElement request = wait.until(ExpectedConditions.visibilityOfElementLocated(createdRequest));
-
-        return request.isDisplayed();
-    }
-
-    private void scrollToCenter(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block: 'center'});",
-                element
-        );
+        return isElementDisplayed(createdRequest);
     }
 }

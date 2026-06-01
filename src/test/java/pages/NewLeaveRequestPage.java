@@ -1,25 +1,19 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
 
-public class NewLeaveRequestPage {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class NewLeaveRequestPage extends BasePage {
 
     private final By employeeNameInput =
             By.xpath("//label[contains(normalize-space(), 'employeeName')]/following::input[1]");
@@ -43,36 +37,35 @@ public class NewLeaveRequestPage {
             By.xpath("//*[contains(normalize-space(), 'Submit Leave Request')]");
 
     public NewLeaveRequestPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        super(driver);
     }
 
     public void waitUntilLoaded() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameInput));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(reasonInput));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(endDateInput));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(startDateInput));
+        waitUntilVisible(employeeNameInput);
+        waitUntilVisible(reasonInput);
+        waitUntilVisible(endDateInput);
+        waitUntilVisible(startDateInput);
     }
 
     public void fillEmployeeName(String employeeName) {
-        type(employeeNameInput, employeeName);
+        typeAndTab(employeeNameInput, employeeName);
     }
 
     public void fillReason(String reason) {
-        type(reasonInput, reason);
+        typeAndTab(reasonInput, reason);
     }
 
     public void fillStartDate(String startDate) {
-        type(startDateInput, startDate);
+        typeAndTab(startDateInput, startDate);
     }
 
     public void fillEndDate(String endDate) {
-        type(endDateInput, endDate);
+        typeAndTab(endDateInput, endDate);
     }
 
     public void selectIsActiveIfVisible() {
         try {
-            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(isActiveCheckbox));
+            WebElement checkbox = waitUntilClickable(isActiveCheckbox);
 
             if (!checkbox.isSelected()) {
                 checkbox.click();
@@ -84,7 +77,7 @@ public class NewLeaveRequestPage {
     }
 
     public void clickCreate() {
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(createButton));
+        WebElement button = waitUntilClickable(createButton);
 
         scrollToCenter(button);
 
@@ -129,22 +122,5 @@ public class NewLeaveRequestPage {
         } catch (IOException e) {
             throw new RuntimeException("Could not save screenshot", e);
         }
-    }
-
-    private void type(By locator, String value) {
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-
-        element.click();
-        element.sendKeys(Keys.CONTROL, "a");
-        element.sendKeys(Keys.BACK_SPACE);
-        element.sendKeys(value);
-        element.sendKeys(Keys.TAB);
-    }
-
-    private void scrollToCenter(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block: 'center'});",
-                element
-        );
     }
 }

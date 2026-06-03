@@ -104,6 +104,25 @@ public class NewLeaveRequestPage extends BasePage {
     public String getBodyText() {
         return driver.findElement(By.tagName("body")).getText();
     }
+    public boolean isFormStillVisible() {
+        return driver.getPageSource().contains("Submit Leave Request")
+                || driver.getPageSource().contains("employeeName")
+                || driver.getPageSource().contains("reason")
+                || driver.getPageSource().contains("startDate")
+                || driver.getPageSource().contains("endDate");
+    }
+
+    public boolean hasValidationMessage() {
+        String bodyText = getBodyText().toLowerCase();
+
+        return bodyText.contains("required")
+                || bodyText.contains("erforderlich")
+                || bodyText.contains("pflicht")
+                || bodyText.contains("valid")
+                || bodyText.contains("invalid")
+                || bodyText.contains("fehler")
+                || bodyText.contains("error");
+    }
 
     public void takeScreenshot(String fileName) {
         try {

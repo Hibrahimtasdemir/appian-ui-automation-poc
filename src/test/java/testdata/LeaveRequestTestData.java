@@ -27,7 +27,16 @@ public class LeaveRequestTestData {
                 "06/19/2026"
         );
     }
+    public static LeaveRequestTestData invalidDateRangeRequest() {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 
+        return new LeaveRequestTestData(
+                "Ibrahim Invalid Date Test " + timestamp,
+                "Invalid date range automation test",
+                "06/20/2026",
+                "06/15/2026"
+        );
+    }
     public String getEmployeeName() {
         return employeeName;
     }

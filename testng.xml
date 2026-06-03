@@ -1,15 +1,15 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Appian UI Automation POC Suite">
 
-    <test name="Stable E2E Tests">
+    <test name="Required Field Validation Tests">
         <groups>
             <run>
-                <include name="e2e"/>
+                <include name="validation"/>
             </run>
         </groups>
 
         <classes>
-            <class name="tests.CreateLeaveRequestTest"/>
+            <class name="tests.RequiredFieldValidationTest"/>
         </classes>
     </test>
 

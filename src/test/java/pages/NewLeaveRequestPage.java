@@ -123,7 +123,21 @@ public class NewLeaveRequestPage extends BasePage {
                 || bodyText.contains("fehler")
                 || bodyText.contains("error");
     }
+    public boolean hasDateRangeValidationMessage() {
+        String bodyText = getBodyText().toLowerCase();
 
+        return bodyText.contains("date")
+                || bodyText.contains("datum")
+                || bodyText.contains("start")
+                || bodyText.contains("end")
+                || bodyText.contains("invalid")
+                || bodyText.contains("valid")
+                || bodyText.contains("error")
+                || bodyText.contains("fehler")
+                || bodyText.contains("must be")
+                || bodyText.contains("after")
+                || bodyText.contains("before");
+    }
     public void takeScreenshot(String fileName) {
         try {
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

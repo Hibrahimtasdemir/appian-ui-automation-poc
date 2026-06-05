@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Appian UI Automation Employee Suite">
+
+    <test name="Employee Dashboard Tests">
+        <groups>
+            <run>
+                <include name="employee"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="tests.EmployeeDashboardSearchTest"/>
+        </classes>
+    </test>
+
+</suite>

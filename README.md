@@ -111,6 +111,11 @@ No username or password is stored in the project.
 Run the stable E2E test with:
 
 mvn clean test
+mvn clean test "-DsuiteXmlFile=testng-manager.xml"
+testng.xml              → Full Stable Suite
+testng-e2e.xml          → E2E tests
+testng-validation.xml   → Validation tests
+testng-manager.xml      → Manager dashboard tests
 
 The test currently requires manual login because the Appian Community login flow may require email verification.
 

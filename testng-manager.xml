@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Appian UI Automation Manager Suite">
+
+    <test name="Manager Dashboard Tests">
+        <groups>
+            <run>
+                <include name="manager"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="tests.ManagerDashboardSearchTest"/>
+        </classes>
+    </test>
+
+</suite>

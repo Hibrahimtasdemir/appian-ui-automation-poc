@@ -3,7 +3,7 @@ package utils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
+import io.qameta.allure.Attachment;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,10 +37,16 @@ public final class ScreenshotUtils {
                     StandardCopyOption.REPLACE_EXISTING
             );
 
+            attachScreenshotToAllure(driver);
+
             System.out.println("Screenshot saved to: " + destination.getAbsolutePath());
 
         } catch (IOException e) {
             throw new RuntimeException("Could not save screenshot: " + destination.getAbsolutePath(), e);
         }
+    }
+    @Attachment(value = "Failure Screenshot", type = "image/png")
+    private static byte[] attachScreenshotToAllure(WebDriver driver) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 }

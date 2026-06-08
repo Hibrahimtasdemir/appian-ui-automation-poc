@@ -8,11 +8,22 @@ import pages.NewLeaveRequestPage;
 import testdata.LeaveRequestTestData;
 import utils.ConfigReader;
 import utils.ManualLoginHelper;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 
 public class CreateLeaveRequestTest extends BaseTest {
 
     private static final String SITE_PATH = "/suite/sites/leave-request-automation-poc";
 
+    @Epic("Leave Request Management")
+    @Feature("Employee Leave Request")
+    @Story("Create new leave request")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verifies that a user can create a new leave request and find it in the Employee Leave Dashboard.")
     @Test(groups = {"e2e", "leave-request"})
     public void shouldCreateNewLeaveRequest() {
         String siteUrl = ConfigReader.get("appian.site.url");

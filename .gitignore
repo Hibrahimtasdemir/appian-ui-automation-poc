@@ -51,3 +51,6 @@ local.properties
 .allure/
 allure-results/
 allure-report/
+
+### Local Chrome profile for Selenium session reuse ###
+.chrome-profile/

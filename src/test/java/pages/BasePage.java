@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ConfigReader;
 
 import java.time.Duration;
 
@@ -32,6 +33,7 @@ public abstract class BasePage {
         WebElement element = waitUntilClickable(locator);
         scrollToCenter(element);
         element.click();
+        pauseAfterAction();
     }
 
     protected void typeAndTab(By locator, String value) {
@@ -42,6 +44,7 @@ public abstract class BasePage {
         element.sendKeys(Keys.BACK_SPACE);
         element.sendKeys(value);
         element.sendKeys(Keys.TAB);
+        pauseAfterAction();
     }
 
     protected void scrollToCenter(WebElement element) {
@@ -53,5 +56,21 @@ public abstract class BasePage {
 
     protected boolean isElementDisplayed(By locator) {
         return waitUntilVisible(locator).isDisplayed();
+    }
+    protected void pauseAfterAction() {
+        long delayMs = Long.parseLong(
+                ConfigReader.getOrDefault("action.delay.ms", "0")
+        );
+
+        if (delayMs <= 0) {
+            return;
+        }
+
+        try {
+            Thread.sleep(delayMs);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Action pause interrupted", e);
+        }
     }
 }
